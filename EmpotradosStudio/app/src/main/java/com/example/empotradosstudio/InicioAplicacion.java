@@ -16,7 +16,7 @@ public class InicioAplicacion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_aplicacion);
         boton_ubicacion = (Button) findViewById(R.id.button_maps);
-
+        boton_ubicacion.setText(R.string.boton_location);
         Ubicacion();
 
     }

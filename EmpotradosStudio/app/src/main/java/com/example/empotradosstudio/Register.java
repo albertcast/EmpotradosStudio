@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Register extends AppCompatActivity {
@@ -15,6 +16,7 @@ public class Register extends AppCompatActivity {
     EditText editText_usuario, editText_password, editText_repetir_password;
     Button boton_registro;
     DatabaseHelper myDb;
+    TextView textView_usuario, textView_password, textView_repetir_password;
 
 
 
@@ -29,6 +31,16 @@ public class Register extends AppCompatActivity {
         editText_password = (EditText) findViewById(R.id.editText_register_password);
         editText_repetir_password = (EditText) findViewById(R.id.editText_register_repetir_password);
         boton_registro = (Button) findViewById(R.id.button_register);
+        boton_registro.setText(R.string.boton_registro);
+
+        textView_usuario = (TextView) findViewById(R.id.textview_usuario_registro);
+        textView_password = (TextView) findViewById(R.id.textview_contraseña_registro);
+        textView_repetir_password = (TextView) findViewById(R.id.textview_repetir_contraseña_registro);
+
+        textView_usuario.setText(R.string.textView_usuario_string);
+        textView_password.setText(R.string.textView_password_string);
+        textView_repetir_password.setText(R.string.textView_repetir_password_string);
+
         Register();
     }
 

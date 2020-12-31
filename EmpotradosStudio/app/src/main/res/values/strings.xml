@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">EmpotradosStudio</string>
     <string name="title_activity_maps">Map</string>
+    <string name="textView_usuario_string">Usuario</string>
+    <string name="textView_password_string">Contraseña</string>
+    <string name="boton_login">Iniciar sesión</string>
+    <string name="boton_registro">Registro</string>
+    <string name="boton_location">Ubicación</string>
+    <string name="textView_repetir_password_string">Repetir contraseña</string>
+
 </resources>

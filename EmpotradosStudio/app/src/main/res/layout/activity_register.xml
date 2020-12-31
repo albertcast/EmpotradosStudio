@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.189" />
 
     <TextView
-        android:id="@+id/textview_usuario"
+        android:id="@+id/textview_usuario_registro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Usuario"
@@ -59,7 +59,7 @@
         app:layout_constraintVertical_bias="0.476" />
 
     <TextView
-        android:id="@+id/textview_contraseña"
+        android:id="@+id/textview_contraseña_registro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Contraseña"
@@ -72,7 +72,7 @@
         app:layout_constraintVertical_bias="0.619" />
 
     <TextView
-        android:id="@+id/textview_repetir_contraseña"
+        android:id="@+id/textview_repetir_contraseña_registro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Repetir contraseña"
@@ -92,7 +92,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/editText_register_repetir_password"
         app:layout_constraintHorizontal_bias="0.449"
-        app:layout_constraintStart_toStartOf="@+id/textview_repetir_contraseña"
+        app:layout_constraintStart_toStartOf="@+id/textview_repetir_contraseña_registro"
         app:layout_constraintTop_toBottomOf="@+id/editText_register_repetir_password"
         app:layout_constraintVertical_bias="0.163" />
 </androidx.constraintlayout.widget.ConstraintLayout>

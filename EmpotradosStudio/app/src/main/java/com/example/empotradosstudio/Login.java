@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Login extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class Login extends AppCompatActivity {
     DatabaseHelper myDb;
     EditText editText_usuario, editText_password;
     Button boton_login, boton_registro;
-
+    TextView textView_usuario, textView_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,14 @@ public class Login extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
         editText_usuario = (EditText) findViewById(R.id.editText_usuario);
         editText_password = (EditText) findViewById(R.id.editText_register_password);
-        boton_login = (Button) findViewById(R.id.boton_login);
-        boton_registro = (Button) findViewById(R.id.boton_registro);
+        boton_login = (Button) findViewById(R.id.boton_login_login);
+        boton_registro = (Button) findViewById(R.id.boton_registro_login);
+        textView_usuario = (TextView) findViewById(R.id.textView_usuario_login);
+        textView_password = (TextView) findViewById(R.id.textView_password_login);
+        textView_usuario.setText(R.string.textView_usuario_string);
+        textView_password.setText(R.string.textView_password_string);
+        boton_login.setText(R.string.boton_login);
+        boton_registro.setText(R.string.boton_registro);
         Login();
         Registro();
 
