@@ -37,11 +37,11 @@ public class Register extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!TextUtils.isEmpty(editText_usuario.getText().toString()) || !TextUtils.isEmpty(editText_password.getText().toString()) || !TextUtils.isEmpty(editText_repetir_password.getText().toString())){
+                        if (!TextUtils.isEmpty(editText_usuario.getText().toString()) && !TextUtils.isEmpty(editText_password.getText().toString()) && !TextUtils.isEmpty(editText_repetir_password.getText().toString())){
                             if (editText_password.getText().toString().equals(editText_repetir_password.getText().toString())){
                                 System.out.println(editText_usuario.getText().toString());
                                 System.out.println(editText_password.getText().toString());
-                                myDb.insertData(editText_usuario.getText().toString(), editText_password.getText().toString());
+                                //myDb.insertData(editText_usuario.getText().toString(), editText_password.getText().toString());
                                 Intent intento = new Intent(Register.this, Login.class);
                                 intento.putExtra("registro", "Usuario creado");
                                 startActivity(intento);
