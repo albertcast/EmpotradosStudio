@@ -22,7 +22,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
         String admin = "admin";
         db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, USER TEXT, PASSWORD TEXT)");
-        db.execSQL("INSERT INTO "+ TABLE_NAME+ " VALUES(" +
+        db.execSQL("INSERT INTO "+ TABLE_NAME+
+                        COL_1 + "," +
+                        COL_2 + "," +
+                        COL_3 + "," +
+                " VALUES (" +
                         admin + "," +
                         admin + ");");
     }
