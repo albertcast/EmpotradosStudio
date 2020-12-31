@@ -41,7 +41,7 @@ public class Login extends AppCompatActivity {
                         if(res.moveToNext()) {
                             password = res.getString(2);
                             if(editText_password.getText().toString().equalsIgnoreCase(password)){
-                                Intent intento = new Intent(Login.this, MapsActivity.class);
+                                Intent intento = new Intent(Login.this, InicioAplicacion.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("usuario", editText_usuario.getText().toString());
                                 intento.putExtras(bundle);
