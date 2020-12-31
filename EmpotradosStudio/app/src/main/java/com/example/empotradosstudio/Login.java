@@ -47,8 +47,6 @@ public class Login extends AppCompatActivity {
                                 intento.putExtras(bundle);
                                 startActivity(intento);
                             } else {
-                                Intent intento = new Intent(Login.this, MapsActivity.class);
-                                startActivity(intento);
                                 Toast.makeText(Login.this,"Usuario o contraseña inválidos", Toast.LENGTH_LONG).show();
                             }
                         } else {
