@@ -6,8 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".Register">
 
+    <TextView
+        android:id="@+id/textView_register_apellido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apellido"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_register_apellido"
+        app:layout_constraintEnd_toStartOf="@+id/editText_register_apellido"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_register_apellido"
+        app:layout_constraintVertical_bias="0.523" />
+
     <EditText
-        android:id="@+id/editText_register_nombre"
+        android:id="@+id/editText_register_apellido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editText_register_nombre"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/editText_register_nombre"
+        app:layout_constraintTop_toBottomOf="@+id/editText_register_user"
+        app:layout_constraintVertical_bias="0.492" />
+
+    <TextView
+        android:id="@+id/textview_usuario_registro2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Usuario"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_register_user"
+        app:layout_constraintEnd_toStartOf="@+id/editText_register_user"
+        app:layout_constraintHorizontal_bias="0.112"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_register_user"
+        app:layout_constraintVertical_bias="0.476" />
+
+    <EditText
+        android:id="@+id/editText_register_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -26,11 +65,11 @@
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/editText_register_repetir_password"
-        app:layout_constraintEnd_toEndOf="@+id/editText_register_nombre"
+        app:layout_constraintEnd_toEndOf="@+id/editText_register_user"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editText_register_nombre"
-        app:layout_constraintTop_toBottomOf="@+id/editText_register_nombre"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintStart_toStartOf="@+id/editText_register_user"
+        app:layout_constraintTop_toBottomOf="@+id/editText_register_user"
+        app:layout_constraintVertical_bias="0.481" />
 
     <EditText
         android:id="@+id/editText_register_repetir_password"
@@ -38,12 +77,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/editText_register_nombre"
         app:layout_constraintEnd_toEndOf="@+id/editText_register_password"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/editText_register_password"
-        app:layout_constraintTop_toBottomOf="@+id/editText_register_nombre"
-        app:layout_constraintVertical_bias="0.189" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_register_user"
+        app:layout_constraintVertical_bias="0.8" />
 
     <TextView
         android:id="@+id/textview_usuario_registro"
@@ -51,11 +90,11 @@
         android:layout_height="wrap_content"
         android:text="Usuario"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText_register_nombre"
-        app:layout_constraintEnd_toStartOf="@+id/editText_register_nombre"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_register_user"
+        app:layout_constraintEnd_toStartOf="@+id/editText_register_user"
         app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText_register_nombre"
+        app:layout_constraintTop_toTopOf="@+id/editText_register_user"
         app:layout_constraintVertical_bias="0.476" />
 
     <TextView
@@ -91,8 +130,33 @@
         android:text="Registrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/editText_register_repetir_password"
-        app:layout_constraintHorizontal_bias="0.449"
         app:layout_constraintStart_toStartOf="@+id/textview_repetir_contraseña_registro"
         app:layout_constraintTop_toBottomOf="@+id/editText_register_repetir_password"
-        app:layout_constraintVertical_bias="0.163" />
+        app:layout_constraintVertical_bias="0.801" />
+
+    <EditText
+        android:id="@+id/editText_register_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editText_register_apellido"
+        app:layout_constraintEnd_toEndOf="@+id/editText_register_repetir_password"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editText_register_repetir_password"
+        app:layout_constraintTop_toBottomOf="@+id/editText_register_user"
+        app:layout_constraintVertical_bias="0.847" />
+
+    <TextView
+        android:id="@+id/textView_register_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_register_nombre"
+        app:layout_constraintEnd_toStartOf="@+id/editText_register_nombre"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_register_nombre"
+        app:layout_constraintVertical_bias="0.571" />
 </androidx.constraintlayout.widget.ConstraintLayout>

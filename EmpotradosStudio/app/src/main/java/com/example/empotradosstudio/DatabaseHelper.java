@@ -12,7 +12,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_1 = "ID";
     public static final String COL_2 = "USER";
     public static final String COL_3 = "PASSWORD";
-
+    public static final String COL_4 = "NOMBRE";
+    public static final String COL_5 = "APELLIDO";
+    public static final String COL_6 = "NIVEL";
+    public static final String COL_7 = "EXPERIENCIA";
 
     public DatabaseHelper(Context context){
         super(context,DATABASE_NAME,null,1);
@@ -20,21 +23,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
+
         String admin = "admin";
-        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, USER TEXT, PASSWORD TEXT)");
+        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, USER TEXT, PASSWORD TEXT, NOMBRE TEXT, APELLIDO TEXT, NIVEL INTEGER, EXPERIENCIA INTEGER)");
         db.execSQL("INSERT INTO "+ TABLE_NAME+ " (" +
                 COL_2 + "," +
-                COL_3 + ")" +
+                COL_3 + "," +
+                COL_4 + "," +
+                COL_5 + "," +
+                COL_6 + "," +
+                COL_7 + ")" +
                 " VALUES ('" +
                 admin + "','" +
-                admin + "');");
-    }
-
-    public void setDefaultDB(SQLiteDatabase db){
-        ContentValues values =  new ContentValues();
-        values.put(COL_2, "admin");
-        values.put(COL_3,"admin");
-        db.insert(TABLE_NAME, null, values);
+                admin + "','" +
+                admin + "','" +
+                admin + "'," +
+                0 + "," +
+                0 + ");");
     }
 
     @Override
@@ -43,11 +48,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String user, String password){
+    public boolean insertData(String user, String password, String nombre, String apellido){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, user);
         contentValues.put(COL_3, password);
+        contentValues.put(COL_4, nombre);
+        contentValues.put(COL_5, apellido);
+        contentValues.put(COL_6, 0);
+        contentValues.put(COL_7, 0);
+
         long result = db.insert(TABLE_NAME, null, contentValues);
         if (result == -1){
             return false;
@@ -68,13 +78,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean updateData(String id, String user, String password){
+    public boolean updateData(String id, String nombre, String apellido){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1, id);
-        contentValues.put(COL_2, user);
-        contentValues.put(COL_3, password);
+        contentValues.put(COL_4, nombre);
+        contentValues.put(COL_5, apellido);
         db.update(TABLE_NAME, contentValues, "ID = ?", new String[] { id });
+        return true;
+    }
+
+    public boolean updateExperiencia(String user, int exp){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        Cursor res = getUsername(user);
+        if (res.moveToNext()){
+            int experiencia, nivel;
+            String id;
+            id = res.getString(1);
+            nivel = res.getInt(6);
+            experiencia = res.getInt(7);
+            if (experiencia + exp >= 100){
+                nivel++;
+                experiencia = experiencia + exp - 100;
+            } else {
+                experiencia += exp;
+            }
+            contentValues.put(COL_1, id);
+            contentValues.put(COL_6, nivel);
+            contentValues.put(COL_7, experiencia);
+            db.update(TABLE_NAME, contentValues, "ID = ?", new String[] { id });
+        }
         return true;
     }
 
