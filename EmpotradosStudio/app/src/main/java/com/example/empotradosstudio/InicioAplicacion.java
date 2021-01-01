@@ -10,6 +10,7 @@ import android.widget.Button;
 public class InicioAplicacion extends AppCompatActivity {
 
     Button boton_ubicacion;
+    private boolean locationPermission = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
