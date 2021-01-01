@@ -6,6 +6,9 @@
     <string name="boton_login">Log in</string>
     <string name="boton_registro">Sign in</string>
     <string name="boton_location">Campings</string>
+    <string name="boton_volver">Return</string>
+    <string name="boton_guardar">Save changes</string>
+    <string name="boton_perfil">Profile</string>
     <string name="textView_repetir_password_string">Repeat password</string>
     <string name="textView_nombre_string">Name</string>
     <string name="textView_apellido_string">Surname</string>

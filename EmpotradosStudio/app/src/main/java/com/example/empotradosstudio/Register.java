@@ -3,6 +3,7 @@ package com.example.empotradosstudio;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -58,12 +59,15 @@ public class Register extends AppCompatActivity {
                         if (!TextUtils.isEmpty(editText_usuario.getText().toString()) && !TextUtils.isEmpty(editText_password.getText().toString()) && !TextUtils.isEmpty(editText_repetir_password.getText().toString())
                         && !TextUtils.isEmpty(editText_nombre.getText().toString()) && !TextUtils.isEmpty(editText_apellido.getText().toString())){
                             if (editText_password.getText().toString().equals(editText_repetir_password.getText().toString())){
-                                System.out.println(editText_usuario.getText().toString());
-                                System.out.println(editText_password.getText().toString());
-                                myDb.insertData(editText_usuario.getText().toString(), editText_password.getText().toString(), editText_nombre.getText().toString(), editText_apellido.getText().toString());
-                                Intent intento = new Intent(Register.this, Login.class);
-                                intento.putExtra("registro", "Usuario creado");
-                                startActivity(intento);
+                                Cursor res = myDb.getUsername(editText_usuario.getText().toString());
+                                if (res.moveToNext()){
+                                    Toast.makeText(Register.this, "Nombre de usuario ya está en uso", Toast.LENGTH_LONG).show();
+                                } else {
+                                    myDb.insertData(editText_usuario.getText().toString(), editText_password.getText().toString(), editText_nombre.getText().toString(), editText_apellido.getText().toString());
+                                    Intent intento = new Intent(Register.this, Login.class);
+                                    intento.putExtra("registro", "Usuario creado");
+                                    startActivity(intento);
+                                }
                             } else {
                                 Toast.makeText(Register.this, "Las contraseñas introducidas no coinciden", Toast.LENGTH_LONG).show();
                             }

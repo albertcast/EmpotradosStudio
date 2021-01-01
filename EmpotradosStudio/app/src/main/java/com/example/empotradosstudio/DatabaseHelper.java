@@ -38,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 admin + "','" +
                 admin + "','" +
                 admin + "'," +
-                0 + "," +
+                1 + "," +
                 0 + ");");
     }
 
@@ -55,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_3, password);
         contentValues.put(COL_4, nombre);
         contentValues.put(COL_5, apellido);
-        contentValues.put(COL_6, 0);
+        contentValues.put(COL_6, 1);
         contentValues.put(COL_7, 0);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
