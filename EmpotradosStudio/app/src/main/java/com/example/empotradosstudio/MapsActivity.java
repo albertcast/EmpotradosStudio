@@ -90,12 +90,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                             System.out.println("algo mal");
                                         }
                                         else {
+                                            if(mMap != null){
                                             lat = location.getLatitude()+ "";
                                             lon = location.getLongitude()+ "";
                                             LatLng currentPosition = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
                                             mMap.addMarker(new MarkerOptions().position(currentPosition).title("You are here"));
                                             float zoomLevel = 7.0f; //This goes up to 21
                                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
+                                            }
+
                                         }
                                     }
                                 });
