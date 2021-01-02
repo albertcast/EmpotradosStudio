@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
         Registro();
 
         if (getIntent() != null && getIntent().hasExtra("registro")){
-            Toast.makeText(Login.this, "Usuario creado", Toast.LENGTH_LONG).show();
+            Toast.makeText(Login.this, R.string.Usuario_creado_string, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -71,13 +71,13 @@ public class Login extends AppCompatActivity {
                                     intento.putExtra("usuario", editText_usuario.getText().toString());
                                     startActivity(intento);
                                 } else {
-                                    Toast.makeText(Login.this,"Usuario o contraseña inválidos", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Login.this,R.string.Usuario_o_contraseña_inválidos_string, Toast.LENGTH_LONG).show();
                                 }
                             } else {
-                                Toast.makeText(Login.this,"Usuario o contraseña inválidos", Toast.LENGTH_LONG).show();
+                                Toast.makeText(Login.this,R.string.Usuario_o_contraseña_inválidos_string, Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            Toast.makeText(Login.this,"Campo usuario o contraseña vacíos", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Login.this,R.string.Algunos_campos_están_vacíos_string, Toast.LENGTH_LONG).show();
                         }
                     }
                 }

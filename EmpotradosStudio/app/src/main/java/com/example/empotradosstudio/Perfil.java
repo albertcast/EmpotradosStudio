@@ -91,12 +91,9 @@ public class Perfil extends AppCompatActivity {
                         Cursor res = myDb.getUsername(username);
                         if (res.moveToNext()){
                             myDb.updateData(res.getString(0), editText_nombre.getText().toString(), editText_apellidos.getText().toString());
-                            Intent intento = new Intent(Perfil.this, InicioAplicacion.class);
-                            intento.putExtra("usuario", username);
-                            intento.putExtra("perfil_guardar", "Datos guardados");
-                            startActivity(intento);
+                            Toast.makeText(Perfil.this, R.string.Los_cambios_han_sido_guardados_string, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(Perfil.this, "No se han podido guardar los cambios", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Perfil.this, R.string.No_se_han_podido_guardar_los_cambios_string, Toast.LENGTH_LONG).show();
                         }
                     }
                 }

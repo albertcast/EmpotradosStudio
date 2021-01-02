@@ -61,7 +61,7 @@ public class Register extends AppCompatActivity {
                             if (editText_password.getText().toString().equals(editText_repetir_password.getText().toString())){
                                 Cursor res = myDb.getUsername(editText_usuario.getText().toString());
                                 if (res.moveToNext()){
-                                    Toast.makeText(Register.this, "Nombre de usuario ya está en uso", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Register.this, R.string.Nombre_de_usuario_ya_está_en_uso_string, Toast.LENGTH_LONG).show();
                                 } else {
                                     myDb.insertData(editText_usuario.getText().toString(), editText_password.getText().toString(), editText_nombre.getText().toString(), editText_apellido.getText().toString());
                                     Intent intento = new Intent(Register.this, Login.class);
@@ -69,10 +69,10 @@ public class Register extends AppCompatActivity {
                                     startActivity(intento);
                                 }
                             } else {
-                                Toast.makeText(Register.this, "Las contraseñas introducidas no coinciden", Toast.LENGTH_LONG).show();
+                                Toast.makeText(Register.this, R.string.Las_contraseñas_introducidas_no_coinciden_string, Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            Toast.makeText(Register.this, "Rellene los campos del formulario", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Register.this, R.string.Algunos_campos_están_vacíos_string, Toast.LENGTH_LONG).show();
                         }
                     }
                 }
