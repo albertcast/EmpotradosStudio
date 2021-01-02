@@ -49,8 +49,9 @@ public class InicioAplicacion extends AppCompatActivity {
     }
 
     public void Ubicacion() {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
+        Intent intento = new Intent(this, MapsActivity.class);
+        intento.putExtra("usuario", username);
+        startActivity(intento);
     }
 
 

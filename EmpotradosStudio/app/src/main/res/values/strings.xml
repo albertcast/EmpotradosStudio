@@ -5,14 +5,14 @@
     <string name="textView_password_string">Contraseña</string>
     <string name="boton_login">Iniciar sesión</string>
     <string name="boton_registro">Registro</string>
-    <string name="boton_location">Campings</string>
+    <string name="boton_location">Mapa</string>
     <string name="boton_volver">Volver</string>
     <string name="boton_guardar">Guardar cambios</string>
     <string name="boton_perfil">Perfil</string>
     <string name="boton_siguiente">Siguiente</string>
     <string name="boton_anterior">Anterior</string>
     <string name="boton_buscar">Buscar</string>
-
+    <string name="boton_rank">Clasificación</string>
     <string name="textView_repetir_password_string">Repetir contraseña</string>
     <string name="textView_nombre_string">Nombre</string>
     <string name="textView_apellido_string">Apellido</string>
