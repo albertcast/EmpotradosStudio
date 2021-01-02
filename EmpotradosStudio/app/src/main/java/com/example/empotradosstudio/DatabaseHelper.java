@@ -33,13 +33,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL_5 + "," +
                 COL_6 + "," +
                 COL_7 + ")" +
-                " VALUES ('" +
-                admin + "','" +
-                admin + "','" +
-                admin + "','" +
-                admin + "'," +
-                1 + "," +
-                0 + ");");
+                " VALUES ('admin','admin','admin','admin',99,0);");
+        db.execSQL("INSERT INTO "+ TABLE_NAME+ " (" +
+                COL_2 + "," +
+                COL_3 + "," +
+                COL_4 + "," +
+                COL_5 + "," +
+                COL_6 + "," +
+                COL_7 + ")" +
+                " VALUES ('usuario1','usuario1','usuario1','usuario1',1,0);");
+        db.execSQL("INSERT INTO "+ TABLE_NAME+ " (" +
+                COL_2 + "," +
+                COL_3 + "," +
+                COL_4 + "," +
+                COL_5 + "," +
+                COL_6 + "," +
+                COL_7 + ")" +
+                " VALUES ('usuario2','usuario2','usuario2','usuario2',6,0);");
+        db.execSQL("INSERT INTO "+ TABLE_NAME+ " (" +
+                COL_2 + "," +
+                COL_3 + "," +
+                COL_4 + "," +
+                COL_5 + "," +
+                COL_6 + "," +
+                COL_7 + ")" +
+                " VALUES ('usuario3','usuario3','usuario3','usuario3',4,0);");
+        db.execSQL("INSERT INTO "+ TABLE_NAME+ " (" +
+                COL_2 + "," +
+                COL_3 + "," +
+                COL_4 + "," +
+                COL_5 + "," +
+                COL_6 + "," +
+                COL_7 + ")" +
+                " VALUES ('usuario4','usuario4','usuario4','usuario4',12,0);");
+        db.execSQL("INSERT INTO "+ TABLE_NAME+ " (" +
+                COL_2 + "," +
+                COL_3 + "," +
+                COL_4 + "," +
+                COL_5 + "," +
+                COL_6 + "," +
+                COL_7 + ")" +
+                " VALUES ('usuario5','usuario5','usuario5','usuario5',20,0);");
+        db.execSQL("INSERT INTO "+ TABLE_NAME+ " (" +
+                COL_2 + "," +
+                COL_3 + "," +
+                COL_4 + "," +
+                COL_5 + "," +
+                COL_6 + "," +
+                COL_7 + ")" +
+                " VALUES ('usuario6','usuario6','usuario6','usuario6',12,0);");
     }
 
     @Override
@@ -69,6 +111,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllData(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
+        return res;
+    }
+
+    public Cursor getAllData(int offset){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME + " ORDER BY " + COL_6 + " DESC LIMIT 6 OFFSET " + offset , null);
         return res;
     }
 
