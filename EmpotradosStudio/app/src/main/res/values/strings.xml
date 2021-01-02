@@ -4,6 +4,7 @@
     <string name="textView_usuario_string">Usuario</string>
     <string name="textView_password_string">Contraseña</string>
     <string name="boton_login">Iniciar sesión</string>
+    <string name="boton_logout">Cerrar sesión</string>
     <string name="boton_registro">Registro</string>
     <string name="boton_location">Mapa</string>
     <string name="boton_volver">Volver</string>

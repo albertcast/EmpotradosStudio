@@ -21,7 +21,7 @@ public class Perfil extends AppCompatActivity {
     DatabaseHelper myDb;
     EditText editText_nombre, editText_apellidos;
     TextView textView_nombre, textView_apellidos, textView_nivel, textView_experiencia;
-    Button boton_volver, boton_guardar;
+    Button boton_logout, boton_guardar;
     String username;
     ProgressBar progressBar_experiencia;
     BottomNavigationView bottomNav;
@@ -38,7 +38,7 @@ public class Perfil extends AppCompatActivity {
             textView_apellidos = (TextView) findViewById(R.id.textView_apellido_perfil);
             textView_experiencia = (TextView) findViewById(R.id.textView_experiencia_perfil);
             textView_nivel = (TextView) findViewById(R.id.textView_nivel_perfil);
-            boton_volver = (Button) findViewById(R.id.button_volver_perfil);
+            boton_logout = (Button) findViewById(R.id.button_logout_perfil);
             boton_guardar = (Button) findViewById(R.id.button_guardar_perfil);
             progressBar_experiencia = (ProgressBar) findViewById(R.id.progressBar_experiencia_perfil);
             progressBar_experiencia.setIndeterminate(false);
@@ -51,7 +51,7 @@ public class Perfil extends AppCompatActivity {
 
             textView_nombre.setText(R.string.textView_nombre_string);
             textView_apellidos.setText(R.string.textView_apellido_string);
-            boton_volver.setText(R.string.boton_volver);
+            boton_logout.setText(R.string.boton_logout);
             boton_guardar.setText(R.string.boton_guardar);
 
 
@@ -75,24 +75,13 @@ public class Perfil extends AppCompatActivity {
         }
 
         Guardar();
-        Volver();
+        Logout();
 
 
     }
 
 
-    public void Volver(){
-        boton_volver.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intento = new Intent(Perfil.this, InicioAplicacion.class);
-                        intento.putExtra("usuario", username);
-                        startActivity(intento);
-                    }
-                }
-        );
-    }
+
 
     public void Guardar(){
         boton_guardar.setOnClickListener(
@@ -124,6 +113,18 @@ public class Perfil extends AppCompatActivity {
         Intent intento = new Intent(this, MapsActivity.class);
         intento.putExtra("usuario", username);
         startActivity(intento);
+    }
+
+    public void Logout(){
+        boton_logout.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intento = new Intent(Perfil.this, Login.class);
+                        startActivity(intento);
+                    }
+                }
+        );
     }
 
     public void Ranking(){

@@ -18,9 +18,11 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RankingPersonas extends AppCompatActivity {
 
+    List<PersonaListView> personaList;
     ListView listView_ranking;
     EditText editText_nombre;
     TextView textView_nombre;
@@ -34,6 +36,8 @@ public class RankingPersonas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking_personas2);
+
+
 
         listView_ranking = (ListView) findViewById(R.id.listView_ranking);
         editText_nombre = (EditText) findViewById(R.id.editText_nombre_ranking);
@@ -56,25 +60,25 @@ public class RankingPersonas extends AppCompatActivity {
 
         myDb = new DatabaseHelper(this);
 
-        Adaptar();
+        Adaptar(offset);
         Anterior();
         Siguiente();
         Buscar();
     }
 
-    public void Adaptar(){
+    public void Adaptar(int offset){
         Cursor res = myDb.getAllData(offset);
 
+        personaList = new ArrayList<>();
+
         res.moveToFirst();
-        ArrayList<String> names = new ArrayList<String>();
         while(!res.isAfterLast()) {
-            names.add(res.getString(3) + " " + res.getString(4) + " " + res.getInt(5));
+            personaList.add(new PersonaListView(res.getString(3), res.getString(4), res.getInt(5)));
             res.moveToNext();
         }
         res.close();
 
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, names);
+        MyCustomListAdapter adapter = new MyCustomListAdapter(this, R.layout.my_list_item, personaList);
         listView_ranking.setAdapter(adapter);
     }
 
@@ -92,18 +96,7 @@ public class RankingPersonas extends AppCompatActivity {
         }
         res.close();
 
-        Cursor resAux = myDb.getAllData(offset_buscar);
-
-        resAux.moveToFirst();
-        ArrayList<String> names = new ArrayList<String>();
-        while(!resAux.isAfterLast()) {
-            names.add(resAux.getString(3) + " " + resAux.getString(4) + " " + resAux.getInt(5));
-            resAux.moveToNext();
-        }
-        resAux.close();
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, names);
-        listView_ranking.setAdapter(adapter);
+        Adaptar(offset_buscar);
 
         offset_buscar = 0;
     }
@@ -115,7 +108,7 @@ public class RankingPersonas extends AppCompatActivity {
                     public void onClick(View v) {
                         if (offset > 0) {
                             offset-= limit;
-                            Adaptar();
+                            Adaptar(offset);
                         }
                     }
                 }
@@ -130,7 +123,7 @@ public class RankingPersonas extends AppCompatActivity {
                         Cursor res = myDb.getAllData(offset+limit);
                         if(res.getCount()!= 0){
                             offset+=limit;
-                            Adaptar();
+                            Adaptar(offset);
                         }
                     }
                 }
@@ -160,9 +153,8 @@ public class RankingPersonas extends AppCompatActivity {
     }
 
     public void Ubicacion() {
-        Intent intento = new Intent(this, MapsActivity.class);
-        intento.putExtra("usuario", username);
-        startActivity(intento);
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
 
     public void Ranking(){
