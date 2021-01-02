@@ -1,16 +1,21 @@
 package com.example.empotradosstudio;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -22,6 +27,8 @@ public class RankingPersonas extends AppCompatActivity {
     Button button_anterior, button_siguiente, button_buscar;
     DatabaseHelper myDb;
     int offset = 0, limit = 6, offset_buscar = 0;
+    String username;
+    BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,13 @@ public class RankingPersonas extends AppCompatActivity {
         button_anterior = (Button) findViewById(R.id.button_anterior_ranking);
         button_siguiente = (Button) findViewById(R.id.button_siguiente_ranking);
         button_buscar = (Button) findViewById(R.id.button_buscar_ranking);
+        username = getIntent().getStringExtra("usuario");
+
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+
+        bottomNav.getMenu().getItem(0).setChecked(false);
+        bottomNav.getMenu().getItem(2).setChecked(true);
 
         textView_nombre.setText(R.string.textView_nombre_string);
         button_siguiente.setText(R.string.boton_siguiente);
@@ -137,6 +151,39 @@ public class RankingPersonas extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void Perfil(){
+        Intent intento = new Intent(RankingPersonas.this, Perfil.class);
+        intento.putExtra("usuario", username);
+        startActivity(intento);
+    }
+
+    public void Ubicacion() {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    public void Ranking(){
+        Intent intento = new Intent(RankingPersonas.this, RankingPersonas.class);
+        intento.putExtra("usuario",username);
+        startActivity(intento);
+    }
+
+
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNav.postDelayed(() -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.map) {
+                Ubicacion();
+            } else if (itemId == R.id.perfil) {
+                Perfil();
+            } else if (itemId == R.id.rank) {
+                Ranking();
+            }
+            finish();
+        }, 300);
+        return true;
     }
 
 

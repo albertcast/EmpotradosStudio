@@ -1,17 +1,23 @@
 package com.example.empotradosstudio;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class InicioAplicacion extends AppCompatActivity {
 
     Button boton_ubicacion, boton_perfil, boton_logout, boton_ranking;
     String username;
+    BottomNavigationView bottomNav;
+
     private boolean locationPermission = false;
 
     @Override
@@ -29,43 +35,25 @@ public class InicioAplicacion extends AppCompatActivity {
         boton_ranking = (Button) findViewById(R.id.button_ranking_inicio);
         username = getIntent().getStringExtra("usuario");
 
-
         boton_ubicacion.setText(R.string.boton_location);
         boton_perfil.setText(R.string.boton_perfil);
-        Ubicacion();
-        Perfil();
-        Logout();
-        Ranking();
+
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
     }
 
     public void Perfil(){
-        boton_perfil.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intento = new Intent(InicioAplicacion.this, Perfil.class);
-                        intento.putExtra("usuario", username);
-                        startActivity(intento);
-                    }
-                }
-        );
+        Intent intento = new Intent(InicioAplicacion.this, Perfil.class);
+        intento.putExtra("usuario", username);
+        startActivity(intento);
     }
 
-    public void sendMaps(View view) {
+    public void Ubicacion() {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 
-    public void Ubicacion(){
-        boton_ubicacion.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        sendMaps(v);
-                    }
-                }
-        );
-    }
+
 
     public void Logout(){
         boton_logout.setOnClickListener(
@@ -80,16 +68,25 @@ public class InicioAplicacion extends AppCompatActivity {
     }
 
     public void Ranking(){
-        boton_ranking.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intento = new Intent(InicioAplicacion.this, RankingPersonas.class);
-                        intento.putExtra("usuario",username);
-                        startActivity(intento);
-                    }
-                }
-        );
+        Intent intento = new Intent(InicioAplicacion.this, RankingPersonas.class);
+        intento.putExtra("usuario",username);
+        startActivity(intento);
+    }
+
+
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNav.postDelayed(() -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.map) {
+                Ubicacion();
+            } else if (itemId == R.id.perfil) {
+                Perfil();
+            } else if (itemId == R.id.rank) {
+                Ranking();
+            }
+            finish();
+        }, 300);
+        return true;
     }
 
 }

@@ -14,6 +14,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -31,13 +32,15 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     FusedLocationProviderClient mFusedLocationClient;
     int PERMISSION_ID = 44;
-    String lat, lon;
+    String lat, lon, username;
+    BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        username = getIntent().getStringExtra("usuario");
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
 
     }
 
@@ -346,4 +352,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
         mMap.setMapType(mMap.MAP_TYPE_SATELLITE);
     }
+
+
+    public void Perfil(){
+        Intent intento = new Intent(MapsActivity.this, Perfil.class);
+        intento.putExtra("usuario", username);
+        startActivity(intento);
+    }
+
+    public void Ubicacion() {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    public void Ranking(){
+        Intent intento = new Intent(MapsActivity.this, RankingPersonas.class);
+        intento.putExtra("usuario",username);
+        startActivity(intento);
+    }
+
+
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNav.postDelayed(() -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.map) {
+                Ubicacion();
+            } else if (itemId == R.id.perfil) {
+                Perfil();
+            } else if (itemId == R.id.rank) {
+                Ranking();
+            }
+            finish();
+        }, 300);
+        return true;
+    }
+
 }
