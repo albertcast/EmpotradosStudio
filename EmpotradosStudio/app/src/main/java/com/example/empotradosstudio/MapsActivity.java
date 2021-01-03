@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -34,19 +36,39 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationSource.OnLocationChangedListener {
 
     private GoogleMap mMap;
     FusedLocationProviderClient mFusedLocationClient;
     int PERMISSION_ID = 44;
     String lat, lon, username;
     BottomNavigationView bottomNav;
+    LatLng currentPosition, campingCabopino, campingLosEscullos, campingGiralda, campingCañosDelMeca, campingLaRosaleda, campingAlmayateCosta
+            , campingPinarSanJosé, campingLasLomas, campingPlayaAguadulce, CampingAlmanat, campingValdevaqueros, campingMarAzulBalerma
+            , campingLaAldea, CampingTarifa, CampingLuz;
+    LatLng[] campings;
+    Location location;
+    Marker markerActual;
+
+    private Handler handler = new Handler();
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            // The method you want to call every now and then.
+            onMyLocationChange(location);
+            handler.postDelayed(this,2000); // 2000 = 2 seconds. This time is in millis.
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mFusedLocationClient
                 = LocationServices
                 .getFusedLocationProviderClient(this);
+
+        handler.postDelayed(runnable, 2000); // Call the handler for the first time.
 
         // method to get the location
         getLastLocation();
@@ -84,7 +106,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     public void onComplete(
                                             @NonNull Task<Location> task)
                                     {
-                                        Location location = task.getResult();
+                                        location = task.getResult();
                                         if (location == null) {
                                             requestNewLocationData();
                                             System.out.println("algo mal");
@@ -94,7 +116,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                 lat = location.getLatitude()+ "";
                                                 lon = location.getLongitude()+ "";
                                                 LatLng currentPosition = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
-                                                mMap.addMarker(new MarkerOptions().position(currentPosition).title("You are here"));
+
+                                                markerActual = mMap.addMarker(new MarkerOptions().position(currentPosition).title("You are here"));
                                                 float zoomLevel = 7.0f; //This goes up to 21
                                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
                                             }
@@ -168,8 +191,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .getLastLocation();
             lat = mLastLocation.getLatitude()+ "";
             lon = mLastLocation.getLongitude()+ "";
-            LatLng currentPosition = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
-            mMap.addMarker(new MarkerOptions().position(currentPosition).title("You are here"));
+            currentPosition = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+            markerActual = mMap.addMarker(new MarkerOptions().position(currentPosition).title("You are here"));
             float zoomLevel = 7.0f; //This goes up to 21
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
         }
@@ -289,63 +312,63 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        LatLng campingCabopino = new LatLng(36.490062617714415, -4.743357006152879);
+        campingCabopino = new LatLng(36.490062617714415, -4.743357006152879);
         mMap.addMarker(new MarkerOptions().position(campingCabopino).title("Camping Cabopino")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng campingLosEscullos = new LatLng(36.80353101302459, -2.078768082807563);
+        campingLosEscullos = new LatLng(36.80353101302459, -2.078768082807563);
         mMap.addMarker(new MarkerOptions().position(campingLosEscullos).title("Camping Los Escullos")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng campingGiralda = new LatLng(37.20009743404518, -7.301330646463092);
+        campingGiralda = new LatLng(37.20009743404518, -7.301330646463092);
         mMap.addMarker(new MarkerOptions().position(campingGiralda).title("Camping Giralda")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng campingCañosDelMeca = new LatLng( 36.201705449863795, -6.035827088816103);
+        campingCañosDelMeca = new LatLng( 36.201705449863795, -6.035827088816103);
         mMap.addMarker(new MarkerOptions().position(campingCañosDelMeca).title("Camping Caños Del Meca")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng campingLaRosaleda = new LatLng(36.29325383590065, -6.095138894717429);
+        campingLaRosaleda = new LatLng(36.29325383590065, -6.095138894717429);
         mMap.addMarker(new MarkerOptions().position(campingLaRosaleda).title("Camping La Rosaleda")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng campingAlmayateCosta = new LatLng(36.72530616381238, -4.135005567911514);
+        campingAlmayateCosta = new LatLng(36.72530616381238, -4.135005567911514);
         mMap.addMarker(new MarkerOptions().position(campingAlmayateCosta).title("Camping Almayate Costa")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng campingPinarSanJosé = new LatLng(36.201124159765804, -6.034519086966395);
+        campingPinarSanJosé = new LatLng(36.201124159765804, -6.034519086966395);
         mMap.addMarker(new MarkerOptions().position(campingPinarSanJosé).title("Camping Pinar San José")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng campingLasLomas = new LatLng(37.15961094041243, -3.4547383581073423);
+        campingLasLomas = new LatLng(37.15961094041243, -3.4547383581073423);
         mMap.addMarker(new MarkerOptions().position(campingLasLomas).title("Camping Las Lomas")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng campingPlayaAguadulce = new LatLng(36.671172297785475, -6.405771323734489);
+        campingPlayaAguadulce = new LatLng(36.671172297785475, -6.405771323734489);
         mMap.addMarker(new MarkerOptions().position(campingPlayaAguadulce).title("Camping Playa Aguadulce")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng CampingAlmanat = new LatLng(36.726861865016076, -4.113274177160128);
+        CampingAlmanat = new LatLng(36.726861865016076, -4.113274177160128);
         mMap.addMarker(new MarkerOptions().position(CampingAlmanat).title("Camping Almanat")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng campingValdevaqueros = new LatLng(36.069383890547876, -5.679946416350117);
+        campingValdevaqueros = new LatLng(36.069383890547876, -5.679946416350117);
         mMap.addMarker(new MarkerOptions().position(campingValdevaqueros).title("Camping Valdevaqueros")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng campingMarAzulBalerma = new LatLng(36.72204697996905, -2.8782751716110466);
+        campingMarAzulBalerma = new LatLng(36.72204697996905, -2.8782751716110466);
         mMap.addMarker(new MarkerOptions().position(campingMarAzulBalerma).title("Camping Mar Azul Balerma")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng campingLaAldea = new LatLng(37.14143113234951, -6.490598459957499);
+        campingLaAldea = new LatLng(37.14143113234951, -6.490598459957499);
         mMap.addMarker(new MarkerOptions().position(campingLaAldea).title("Camping La Aldea")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng CampingTarifa = new LatLng(36.05488418183475, -5.64954075258505);
+        CampingTarifa = new LatLng(36.05488418183475, -5.64954075258505);
         mMap.addMarker(new MarkerOptions().position(CampingTarifa).title("Camping Tarifa")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        LatLng CampingLuz = new LatLng(37.20830019007481, -7.252444631120175);
+        CampingLuz = new LatLng(37.20830019007481, -7.252444631120175);
         mMap.addMarker(new MarkerOptions().position(CampingLuz).title("Camping Luz")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
@@ -354,6 +377,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // float zoomLevel = 7.0f; //This goes up to 21
         // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
         mMap.setMapType(mMap.MAP_TYPE_SATELLITE);
+        campings = new LatLng[]{campingCabopino, campingLosEscullos, campingGiralda, campingCañosDelMeca, campingLaRosaleda, campingAlmayateCosta
+                , campingPinarSanJosé, campingLasLomas, campingPlayaAguadulce, CampingAlmanat, campingValdevaqueros, campingMarAzulBalerma
+                , campingLaAldea, CampingTarifa, CampingLuz};
     }
 
 
@@ -398,6 +424,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             finish();
         }, 300);
         return true;
+    }
+
+    @Override
+    public void onLocationChanged(Location location){
+        Location target = new Location("target");
+
+        for(LatLng point : campings) {
+            target.setLatitude(point.latitude);
+            target.setLongitude(point.longitude);
+            if(location.distanceTo(target) < 100) {
+                System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            }
+        }
+    }
+
+    public void onMyLocationChange(Location location) {
+        Location target = new Location("target");
+        if(markerActual!=null){
+            markerActual.remove();
+        }
+        lat = location.getLatitude()+ "";
+        lon = location.getLongitude()+ "";
+        LatLng currentPosition = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+
+        markerActual = mMap.addMarker(new MarkerOptions().position(currentPosition).title("You are here"));
+
+        for(LatLng point : campings) {
+            target.setLatitude(point.latitude);
+            target.setLongitude(point.longitude);
+            if(location.distanceTo(target) < 100) {
+                System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+            }
+        }
     }
 
 }
