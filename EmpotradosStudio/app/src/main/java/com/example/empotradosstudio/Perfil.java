@@ -131,6 +131,13 @@ public class Perfil extends AppCompatActivity {
     }
 
 
+    public void Campings(){
+        Intent intento = new Intent(Perfil.this, ListaCampings.class);
+        intento.putExtra("usuario", username);
+        startActivity(intento);
+    }
+
+
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         bottomNav.postDelayed(() -> {
             int itemId = item.getItemId();
@@ -140,6 +147,8 @@ public class Perfil extends AppCompatActivity {
                 Perfil();
             } else if (itemId == R.id.rank) {
                 Ranking();
+            } else if (itemId == R.id.listaCampings){
+                Campings();
             }
             finish();
         }, 300);

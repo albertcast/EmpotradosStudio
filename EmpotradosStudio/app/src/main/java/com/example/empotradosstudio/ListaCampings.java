@@ -1,16 +1,23 @@
 package com.example.empotradosstudio;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListaCampings extends AppCompatActivity {
 
+    BottomNavigationView bottomNav;
+    String username;
     private String[] names = {"Camping Cabopino", "Campings Los Escullos", "Camping Giralda", "Campings Canos del Meca", "Camping La Rosaleda",
             "Camping San Jose", "Camping Almayate Costa", "Camping Las Lomas", "Camping Playa Agua Dulce", "Camping Almanat", "Camping Valdevaqueros",
             "Camping Balerma", "Camping La Aldea", "Camping Tarifa", "Camping Luz"};
@@ -27,6 +34,12 @@ public class ListaCampings extends AppCompatActivity {
         prepareTheList();
         RecyclerAdapter adapter = new RecyclerAdapter(campingList);
         recyclerView.setAdapter(adapter);
+        username = getIntent().getStringExtra("usuario");
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+
+        bottomNav.getMenu().getItem(0).setChecked(false);
+        bottomNav.getMenu().getItem(3).setChecked(true);
     }
 
     private void prepareTheList(){
@@ -37,5 +50,47 @@ public class ListaCampings extends AppCompatActivity {
             campingList.add(camping);
             count++;
         }
+    }
+
+    public void Perfil(){
+        Intent intento = new Intent(ListaCampings.this, Perfil.class);
+        intento.putExtra("usuario", username);
+        startActivity(intento);
+    }
+
+    public void Ubicacion() {
+        Intent intento = new Intent(this, MapsActivity.class);
+        intento.putExtra("usuario", username);
+        startActivity(intento);
+    }
+
+    public void Ranking(){
+        Intent intento = new Intent(ListaCampings.this, RankingPersonas.class);
+        intento.putExtra("usuario",username);
+        startActivity(intento);
+    }
+
+    public void Campings(){
+        Intent intento = new Intent(ListaCampings.this, ListaCampings.class);
+        intento.putExtra("usuario", username);
+        startActivity(intento);
+    }
+
+
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNav.postDelayed(() -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.map) {
+                Ubicacion();
+            } else if (itemId == R.id.perfil) {
+                Perfil();
+            } else if (itemId == R.id.rank) {
+                Ranking();
+            } else if (itemId == R.id.listaCampings){
+                Campings();
+            }
+            finish();
+        }, 300);
+        return true;
     }
 }

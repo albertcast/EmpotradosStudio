@@ -376,6 +376,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    public void Campings(){
+        Intent intento = new Intent(MapsActivity.this, ListaCampings.class);
+        intento.putExtra("usuario", username);
+        startActivity(intento);
+    }
+
+
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         bottomNav.postDelayed(() -> {
             int itemId = item.getItemId();
@@ -385,6 +392,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Perfil();
             } else if (itemId == R.id.rank) {
                 Ranking();
+            } else if (itemId == R.id.listaCampings){
+                Campings();
             }
             finish();
         }, 300);

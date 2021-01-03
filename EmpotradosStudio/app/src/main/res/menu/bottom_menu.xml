@@ -14,4 +14,9 @@
         android:id="@+id/rank"
         android:icon="@drawable/ic_rank"
         android:title="@string/boton_rank" />
+    <item
+        android:id="@+id/listaCampings"
+        android:icon="@drawable/ic_listacamping"
+        android:title="Campings" />
+
 </menu>
