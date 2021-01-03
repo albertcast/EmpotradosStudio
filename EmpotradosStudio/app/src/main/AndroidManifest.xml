@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EmpotradosStudio">
-        <activity android:name=".ListaCampings"></activity>
+        <activity android:name=".Brujula"></activity>
+        <activity android:name=".ListaCampings" />
         <activity android:name=".RankingPersonas" />
         <activity android:name=".Perfil" />
         <activity android:name=".Register" />
